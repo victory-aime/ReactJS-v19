@@ -4,24 +4,21 @@ import cors from "cors";
 const todos = [
   { id: 1, text: "Learn Vite 2" },
   { id: 2, text: "Learn React" },
+  { id: 3, text: "Learn React Native" },
 ];
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.get("/api/todos", (req, res) => {
-  setTimeout(() => {
-    res.json(todos);
-  }, 3000);
+  res.json(todos);
 });
 
 app.post("/api/todos", (req, res) => {
   setTimeout(() => {
     const body = req.body || {};
     if (!body.text || body.text.trim() === "") {
-      return res
-        .status(400)
-        .json({ error: "Text field is required and cannot be empty" });
+      return res.status(400).json({ error: "Name can't be empty or Error" });
     }
     const todo = {
       id: todos.length + 1,
