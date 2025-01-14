@@ -17,7 +17,7 @@ const UseOptimisticExample = () => {
   }, []);
 
   const [optimisticTodos, setOptimisticTodos] = useOptimistic(todos);
-  async function addTodosServerAction(formData: FormData) {
+  async function fetchData(formData: FormData) {
     startTransition(async () => {
       try {
         setOptimisticTodos([
@@ -39,7 +39,7 @@ const UseOptimisticExample = () => {
   return (
     <Form
       todos={optimisticTodos}
-      handleSubmit={addTodosServerAction}
+      handleSubmit={fetchData}
       isPending={isPending}
       response={response ?? ""}
     />
