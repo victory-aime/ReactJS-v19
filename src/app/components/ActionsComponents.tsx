@@ -13,14 +13,13 @@ export function ActionsComponents({
   const [value, setValue] = useOptimistic(name);
   const [response, handleSubmit, isPending] = useActionState(
     async (_: unknown, formData: FormData) => {
-      const previousName = name;
       try {
         setValue(formData?.get("name") as string);
         await fakeApiCall(formData?.get("name") as string);
         onUpdate();
         return "Success!";
       } catch {
-        setValue(previousName);
+        setValue(name);
         return "Name can't be empty or Error!";
       }
     },

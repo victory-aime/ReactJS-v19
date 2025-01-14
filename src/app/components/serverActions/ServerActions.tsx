@@ -1,5 +1,6 @@
 import { getTodos, addTodo } from "_/app/api/route";
 import { revalidatePath } from "next/cache";
+import { UnorderedList, ListItem, Flex, Box } from "@chakra-ui/react";
 
 export async function ServerActions() {
   const todos = await getTodos();
@@ -11,22 +12,47 @@ export async function ServerActions() {
     try {
       await addTodo(value?.get("text") as string);
       revalidatePath("/");
-    } catch {
-      console.log("Failed to add");
+    } catch (error) {
+      throw new Error(error as string);
     }
   }
 
   return (
-    <>
-      <ul>
-        {todos?.map((todo: { id: string; text: string }) => (
-          <li key={todo.id}>{todo.text}</li>
-        ))}
-      </ul>
-      <form action={addTodos}>
-        <input name="text" placeholder="Enter text" />
-        <button type="submit">{"Add todo"}</button>
-      </form>
-    </>
+    <form action={addTodos}>
+      <Box width={"100%"}>
+        {todos?.map(
+          (todo: { id?: string; text?: string | null }, index: number) => (
+            <UnorderedList key={index}>
+              <ListItem color={"white"} fontSize={"2xl"} key={todo.id}>
+                {todo?.text}
+              </ListItem>
+            </UnorderedList>
+          )
+        )}
+        <Flex gap={3} marginTop={10}>
+          <input
+            style={{
+              background: "none",
+              borderRadius: 8,
+              padding: 8,
+              color: "white",
+            }}
+            name="text"
+            placeholder="Enter text"
+          />
+          <button
+            style={{
+              background: "blue",
+              borderRadius: 8,
+              padding: 8,
+              color: "white",
+            }}
+            type="submit"
+          >
+            Send
+          </button>
+        </Flex>
+      </Box>
+    </form>
   );
 }
