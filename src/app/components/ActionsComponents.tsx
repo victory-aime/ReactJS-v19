@@ -7,7 +7,7 @@ export function ActionsComponents({
   name,
   onUpdate,
 }: {
-  name: string;
+  name: string | null;
   onUpdate: () => void;
 }) {
   const [value, setValue] = useOptimistic(name);

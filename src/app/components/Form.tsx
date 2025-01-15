@@ -9,6 +9,7 @@ import {
   Input,
   Flex,
   useToast,
+  Box,
 } from "@chakra-ui/react";
 import { Suspense, useEffect } from "react";
 
@@ -32,6 +33,7 @@ export const Form = ({
       toast({
         title: "Error",
         description: response,
+        position: "top",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -40,6 +42,7 @@ export const Form = ({
       toast({
         title: "Success",
         description: response,
+        position: "top",
         status: "success",
         duration: 5000,
         isClosable: true,
@@ -50,7 +53,7 @@ export const Form = ({
   return (
     <Suspense fallback={<Spinner />}>
       <form action={(e) => handleSubmit(e)}>
-        <div className="p-8 width-96 bg-neutral-900 rounded-lg">
+        <Box maxW={600} mt={50}>
           {todos ? (
             <>
               {todos?.map((todo: { id?: string; text?: string | null }) => (
@@ -65,12 +68,11 @@ export const Form = ({
               ))}
             </>
           ) : (
-            <Text
-              color={isPending ? "gray.500" : "white"}
-              fontSize={"2xl"}
-              fontWeight={"semibold"}
-            >
-              Name: {value}
+            <Text color={"white"} fontSize={"2xl"} fontWeight={"semibold"}>
+              Name :{" "}
+              <span style={{ color: isPending ? "gray" : "white" }}>
+                {value}
+              </span>
             </Text>
           )}
           <Flex gap={3} marginTop={10}>
@@ -92,7 +94,7 @@ export const Form = ({
               Send
             </Button>
           </Flex>
-        </div>
+        </Box>
       </form>
     </Suspense>
   );

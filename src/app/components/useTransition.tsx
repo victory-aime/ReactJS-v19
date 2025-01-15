@@ -7,7 +7,7 @@ export function UseTransitionExample({
   name,
   onUpdate,
 }: {
-  name: string;
+  name: string | null;
   onUpdate: () => void;
 }) {
   const [isPending, startTransition] = useTransition();

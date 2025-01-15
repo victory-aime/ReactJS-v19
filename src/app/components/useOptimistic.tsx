@@ -5,7 +5,7 @@ import { addTodo, getTodos } from "_/app/api/route";
 import { Todo } from "_/app/type";
 import { Form } from "./Form";
 
-const UseOptimisticExample = () => {
+export const UseOptimisticExample = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [response, setResponse] = useState<string | null>();
   const [isPending, startTransition] = useTransition();
@@ -45,5 +45,3 @@ const UseOptimisticExample = () => {
     />
   );
 };
-
-export default UseOptimisticExample;

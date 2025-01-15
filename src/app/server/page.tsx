@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import { ServerActions } from "../components/serverActions/ServerActions";
+import { ServerActions } from "../components/ServerActions";
 
 const ServerActionsPage = () => {
   return (

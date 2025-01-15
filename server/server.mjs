@@ -7,11 +7,20 @@ const todos = [
   { id: 3, text: "Learn React Native" },
 ];
 
+const name = {
+  name: "Rajesh",
+};
+
 const app = express();
 app.use(cors());
 app.use(express.json());
+
 app.get("/api/todos", (req, res) => {
   res.json(todos);
+});
+
+app.get("/api/name", (req, res) => {
+  res.json(name);
 });
 
 app.post("/api/todos", (req, res) => {

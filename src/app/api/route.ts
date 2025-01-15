@@ -24,6 +24,23 @@ export async function getTodos(): Promise<any> {
   });
 }
 
+export async function getJsonName(): Promise<string> {
+  try {
+    const response = await fetch("http://localhost:8080/api/name");
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(data.name);
+      }, 1000);
+    });
+  } catch (error) {
+    throw new Error("Failed to fetch name");
+  }
+}
+
 export async function addTodo(
   text: string | null
 ): Promise<{ message: string }> {

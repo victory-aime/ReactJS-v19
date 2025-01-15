@@ -1,13 +1,25 @@
 "use client";
-import { Center, Text } from "@chakra-ui/react";
-import React, { Suspense, use, createContext } from "react";
+import { Center, Spinner, Text } from "@chakra-ui/react";
+import React, {
+  Suspense,
+  use,
+  createContext,
+  useState,
+  useEffect,
+} from "react";
 
 const NameContext = createContext<string | null>(null);
 
 export const UseContext = () => {
+  const [name, setName] = useState<string | null>(null);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setName(localStorage.getItem("name"));
+    }
+  }, []);
   return (
-    <Suspense fallback={"isLoading...."}>
-      <NameContext value={localStorage.getItem("name")}>
+    <Suspense fallback={<Spinner />}>
+      <NameContext value={name}>
         <ChildName />
       </NameContext>
     </Suspense>
